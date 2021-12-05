@@ -47,6 +47,32 @@ char const *DPROG_T[T_MAX+1][SprachZahl]={
 	{"Datenbank nicht initialisierbar, breche ab","database init failed, stopping"},
 	// T_Fuege_ein
 	{"Fuege ein: ","Inserting: "}, //ω
+	// T_pruefdatbdt,
+	{"pruefdatbdt()","testdatbdt()"},
+	// T_eindeutige_Identifikation
+	{"eindeutige Identifikation","distinct identification"},
+	// T_Pfad_ohne_Dateinamen
+	{"Pfad ohne Dateinamen","path without file name"},
+	// T_Dateiname
+	{"Dateiname","file name"},
+	// T_verarbeitet
+	{"verarbeitet","processed"},
+	// T_datbdt
+	{"für PZN-Ermittlung verarbeitete BDT-Dateien","bdt files processed to find the pzns"},
+	// T_bdtvz_k
+	{"vz","dir"},
+	// T_bdtvz_l
+  {"bdtvz","bdtdir"},
+	// T_Verzeichnis_der_BDT_Dateien
+	{"Verzeichnis der BDT-Dateien","directory of the bdt files"},
+	// T_Fehler_beim_Oeffnen_der_Datenbank
+	{" Fehler beim Oeffnen der Datenbank "," Error while opening database "},
+	// T_dbn_k,
+	{"dbn","dbn"},
+	// T_dbn_l,
+	{"dbname","dbname"},
+	// T_Name_der_Datenbank,
+	{"Name der Datebank","name of the database"},
 	{"",""} //α
 }; // char const *DPROG_T[T_MAX+1][SprachZahl]=
 
@@ -85,6 +111,8 @@ void hhcl::virtinitopt()
 { //ω
 	opn<<new optcl(/*pptr*/&anhl,/*art*/puchar,T_st_k,T_stop_l,/*TxBp*/&Tx,/*Txi*/T_DPROG_anhalten,/*wi*/1,/*Txi2*/-1,/*rottxt*/nix,/*wert*/1,/*woher*/1); //α //ω
 	opn<<new optcl(/*pptr*/&dszahl,/*art*/pdez,T_n_k,T_dszahl_l,/*TxBp*/&Tx,/*Txi*/T_Zahl_der_aufzulistenden_Datensaetze_ist_zahl_statt,/*wi*/1,/*Txi2*/-1,/*rottxt*/nix,/*wert*/-1,/*woher*/1); //α //ω
+	opn<<new optcl(/*pname*/"bdtvz",/*pptr*/&bdtvz,/*art*/pverz,T_bdtvz_k,T_bdtvz_l,/*TxBp*/&Tx,/*Txi*/T_Verzeichnis_der_BDT_Dateien,/*wi*/0,/*Txi2*/-1,/*rottxt*/string(),/*wert*/-1,/*woher*/!bdtvz.empty(),Tx[T_Verzeichnis_der_BDT_Dateien ]);
+	opn<<new optcl(/*pname*/"dbname",/*pptr*/&dbname,/*art*/pstri,T_dbn_k,T_dbn_l,/*TxBp*/&Tx,/*Txi*/T_Name_der_Datenbank,/*wi*/0,/*Txi2*/-1,/*rottxt*/string(),/*wert*/-1,/*woher*/!bdtvz.empty(),Tx[T_Name_der_Datenbank]);
 	dhcl::virtinitopt(); //α
 } // void hhcl::virtinitopt
 
@@ -162,8 +190,138 @@ void hhcl::pvirtnachrueckfragen()
 	// if (initDB()) exit(schluss(10,Tx[T_Datenbank_nicht_initialisierbar_breche_ab]));  //ω
 } // void hhcl::pvirtnachrueckfragen //α
 //ω
+
+void hhcl::prueftbl()
+{
+	const size_t aktc{0};
+	if (!My) initDB();
+	pruefdatbdt(My, aktc, obverb, oblog, /*direkt*/0);
+}
+
+// wird aufgerufen in: virtpruefweiteres
+void hhcl::pruefdatbdt(DB *My, const size_t aktc, const int obverb, const int oblog, const uchar direkt/*=0*/)
+{
+	hLog(violetts+Tx[T_pruefdatbdt]+schwarz);
+	if (!direkt) {
+		Feld felder[] = {
+			Feld("ID","int","10","",Tx[T_eindeutige_Identifikation],1,1,1,string(),1),
+			Feld("Pfad","varchar","60","",Tx[T_Pfad_ohne_Dateinamen],/*obind*/1,/*obauto*/0,/*nnull*/1,/*vdef*/string()),
+			Feld("Datei","varchar","10","",Tx[T_Dateiname],/*obind*/1,/*obauto*/0,/*nnull*/1,/*vdef*/string()),
+			Feld("verarbeitet","datetime","0","0",Tx[T_verarbeitet],0,0,1),
+		};
+		Feld ifelder0[]{Feld("Pfad"),Feld("Datei")}; Index i0("Pfad",ifelder0,elemzahl(ifelder0));
+		Feld ifelder1[]{Feld("Datei")};    Index i1("Datei",ifelder1,elemzahl(ifelder1));
+		Feld ifelder2[]{Feld("verarbeitet")};    Index i2("verarbeitet",ifelder2,elemzahl(ifelder2));
+		Index indices[]{i0,i1,i2};
+		// auf jeden Fall ginge "binary" statt "utf8" und "" statt "utf8_general_ci"
+		Tabelle taba(My,tdatbdt,felder,sizeof felder/sizeof* felder,indices,sizeof indices/sizeof *indices,0,0,Tx[T_datbdt]/*//,"InnoDB","utf8","utf8_general_ci","DYNAMIC"*/);
+		if (taba.prueftab(aktc,obverb)) {
+			fLog(rots+Tx[T_Fehler_beim_Pruefen_von]+schwarz+tdatbdt,1,1);
+			exit(11);
+		}
+	} // if (!direkt)
+} // int pruefdatbdt(DB *My, string touta, int obverb, int oblog, uchar direkt=0)
+
+
+void hhcl::lese()
+{
+	const string datei{"*.bdt"};
+	const size_t aktc{0};
+	svec erg;
+	systemrueck("find \""+bdtvz+"\" -iname "+datei+" -print0 | /usr/bin/xargs -0 ls -l --time-style=full-iso | sort -k6,7|rev|cut -d/ -f1|rev",obverb,oblog,&erg);
+	for(size_t i=0;i<erg.size();i++) {
+//		fLog(violetts+erg[i]+schwarz,1,1);
+		string sql= "SELECT 0 FROM "+tdatbdt+" WHERE pfad=\""+bdtvz+"\" AND datei=\""+erg[i]+"\"";
+	  RS rtb(My,sql,aktc,ZDB);
+		if (!rtb.obqueryfehler) {
+			char*** cerg{0};
+			uchar gef{0};
+			while (cerg=rtb.HolZeile(),cerg?*cerg:0) {
+				gef=1;
+				break;
+			}
+			if (!gef) {
+				mdatei bdt(bdtvz+"/"+erg[i],ios::in|ios::binary);
+				if (bdt.is_open()) {
+					string zeile, xml;
+					uchar stand{0};
+					while (getline(bdt,zeile)) {
+           if (!stand && zeile.substr(3,4)=="6299" && zeile.find("AMTS:MP")!=string::npos) {
+						 stand=1;
+						 xml=zeile; 
+					 } else if (stand==1 && zeile.substr(3,13)=="6298IsPrinted") {
+						 stand=2;
+					 } else if (stand==2 && zeile.substr(3,4)=="6299") {
+						 if (zeile.substr(7)=="false") {
+						  stand=0;
+						 } else {
+							 stand=3;
+						 }
+					 } else if (stand==3 && zeile.substr(3,4)=="6324") {
+						 stand=0;
+						 if (zeile.find("#CGM BMP gedruckt#")!=string::npos) {
+//							 caus<<xml<<endl;
+               svec mpv,mpp;
+							 aufSplit(&mpv,xml,"<AMTS:");
+							 for(size_t k=0;k<mpv.size();k++) {
+								 const string li{mpv[k].substr(0,2)};
+								 if (li=="S "||li=="M "||li=="R "||li=="X "||li=="W ") {
+//									 caus<<" "<<k<<" "<<mpv[k]<<endl;
+									 size_t pp{mpv[k].find(" p=\"")};
+                   if (pp!=string::npos) {
+										 pp+=4;
+										 const size_t pe{mpv[k].find("\"",pp)};
+										 mpp<<mpv[k].substr(pp,pe-pp);
+									 } else {
+										 mpp<<"";
+									 }
+								 }
+							 }
+							 for (size_t m=0;m<mpp.size();m++) {
+								 caus<<m<<" "<<mpp[m]<<endl;
+							 }
+//							 caus<<zeile<<endl;
+							 ulong p1{zeile.find("$\\TurboMed")+10}, p2{zeile.find("#pdf#")-p1};
+							 string bdtf{"/DATA/turbomed"+ersetze(zeile.substr(p1,p2).c_str(),"\\","/")};
+							 svec pdfv;
+							 systemrueck("pdftotext -bbox \""+bdtf+"\" -",1,1,&pdfv);
+							 for(size_t j=0;j<pdfv.size();j++) {
+								 caus<<j<<" "<<pdfv[j]<<endl;
+							 }
+						 }
+					 }
+					}
+				}
+				if (0) {
+				RS rins(My,tdatbdt); // muss fuer sammeln vor while stehen
+				auto start = std::chrono::system_clock::now();
+				std::time_t jetzt = std::chrono::system_clock::to_time_t(start);
+				vector<instyp> einf;
+				einf.push_back(/*2*/instyp(My->DBS,"Pfad",bdtvz));
+				einf.push_back(/*2*/instyp(My->DBS,"Datei",erg[i]));
+				einf.push_back(/*2*/instyp(My->DBS,"verarbeitet",&jetzt));
+				svec eindfeld; eindfeld<<"id";
+				rins.tbins(&einf,aktc,/*sammeln=*/0,/*obverb=*/ZDB,/*idp=*/0,/*eindeutig=*/0,eindfeld); 
+				if (rins.fnr) {
+					fLog(Tx[T_Fehler_af]+drots+ltoan(rins.fnr)+schwarz+Txk[T_bei]+tuerkis+rins.sql+schwarz+": "+blau+rins.fehler+schwarz,1,1);
+				} else {
+					caus<<erg[i]<<" eingefuegt: "<<erg[i]<<endl;
+				}
+				}
+			}
+		}
+		if (My->fehnr) {
+			fLog(rots+ltoan(My->fehnr)+schwarz+Tx[T_Fehler_beim_Oeffnen_der_Datenbank]+dbname,obverb,oblog);
+		} // 	if (My->fehnr)
+
+		//		systemrueck("cat \"/"+erg[i]+"\"",1);
+	} // 	for(size_t i=0;i<erg.size();i++)
+} // void hhcl::lese
+
 void hhcl::pvirtfuehraus() //α
 { //ω
+	prueftbl();
+	lese();
 } // void hhcl::pvirtfuehraus  //α
 
 

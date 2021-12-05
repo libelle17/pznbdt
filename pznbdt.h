@@ -21,6 +21,19 @@ enum T_
 	T_Zahl_der_aufzulistenden_Datensaetze_ist_zahl_statt,
 	T_Datenbank_nicht_initialisierbar_breche_ab,
 	T_Fuege_ein, //ω
+	T_pruefdatbdt,
+	T_eindeutige_Identifikation,
+  T_Pfad_ohne_Dateinamen,
+	T_Dateiname,
+	T_verarbeitet,
+	T_datbdt,
+	T_bdtvz_k,
+	T_bdtvz_l,
+	T_Verzeichnis_der_BDT_Dateien,
+	T_Fehler_beim_Oeffnen_der_Datenbank,
+	T_dbn_k,
+	T_dbn_l,
+	T_Name_der_Datenbank,
 	T_MAX //α
 }; // enum T_ //ω
 //α
@@ -29,6 +42,9 @@ class hhcl:public dhcl
 	private: 
 		uchar anhl=0;    // <DPROG> anhalten
 		string dszahl="30"; // Datensatzzahl fuer Tabellenausgaben
+		string tdatbdt="datbdt";
+		string bdtvz="/DATA/eigene Dateien/TMExport";   // Verzeichnis der Labordateien
+		string dbname="quelle"; // Name der Datenbank
 		//ω
 	protected: //α
 		string p1;
@@ -42,6 +58,8 @@ class hhcl:public dhcl
 		void virtlieskonfein();
 		void virtautokonfschreib();
 		void anhalten(); //ω
+		void prueftbl();
+		void pruefdatbdt(DB *My, const size_t aktc, const int obverb, const int oblog, const uchar direkt=0);
 	protected: //α
 		// void virtlgnzuw(); // wird aufgerufen in: virtrueckfragen, parsecl, lieskonfein, hcl::hcl nach holsystemsprache
 		void virtVorgbAllg();
@@ -63,6 +81,7 @@ class hhcl:public dhcl
 		void virtschlussanzeige();
 		void zeigdienste(); //ω
 	public: //α
+		void lese();
 		hhcl(const int argc, const char *const *const argv);
 		~hhcl();
 		friend class fsfcl;

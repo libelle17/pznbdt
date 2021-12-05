@@ -2,7 +2,7 @@
 .\" Manual-Seite für ²DPROG²
 .\" Schreiben Sie an geraldschade@gmx.de, wenn Sie Fehler oder Mängel entdeckt haben
 .pc
-.TH man 1 "05.12.21" "Version 0.50033" "Manual-Seite für ²DPROG²"
+.TH man 1 "05.12.21" "Version 0.10077" "Manual-Seite für ²DPROG²"
 .SH NAME
 \fB²DPROG² \- FaxServer-Funktionalität\fR: veranlasst automatischen Faxversand von Dateien, Benennung empfangener Faxe und Protokollierung aller Faxe in einer Datenbank 
 .br
@@ -14,58 +14,2546 @@
 .SH GEBRAUCH
 .SH OPTIONEN 
 .SH FUNKTIONSWEISE
-.SH VORAUSSETZUNGEN
-.SH AUTOMATISCH INSTALLIERTE PROGRAMMPAKETE
-.SH AUSWIRKUNGEN DES PROGRAMMABLAUFS
-.SH DEINSTALLATION
-Wechseln Sie in einem Terminal in das Installationsverzeichnis (beim selben eingeloggten Benutzer: \fBcd ~/²DPROG²\fR, ansonsten wird es über \fB²DPROG² -info\fR angezeigt).
+.SH FUNKTIONSWEISE
 .br
-Rufen Sie dort \fBmake uninstall\fR auf.
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10077 \fR
 .br
-Dadurch wird das installierte \fB²DPROG²\fR gelöscht und das Script \fBuninstallinv\fR in umgekehrter Reihenfolge abgearbeitet, das bei der Installation und beim Aufruf von ²DPROG² erstellt wurde. 
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
 .br
-Dadurch werden zusätzlich installierte Programmpakete, zusätzlich erteilte Berechtigungen, für ²DPROG² eingerichtete Sambafreigaben und Firewallausnahmen wieder gelöscht. 
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
 .br
-Auf die Deinstallation der Konfigurationsdateien, der angesammelten Daten und systemrelevanter Programme wie libgcc und selinux wird dabei verzichtet.
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
 .br
-Etwaige Fehlermeldungen beziehen sich meist auf einen Deinstallationsversuch bereits entfernter Programme und können ignoriert werden.
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
 .br
-.SH RUECKGABEWERTE
-\fB0\fR: Normaler Rückgabewert
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
 .br
-\fB7\fR: Der Infobildschirm (\fB²DPROG² -info\fR) wurde angezeigt 
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
 .br
-\fB8\fR: Die Hilfe wurde angezeigt
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
 .br
-\fB9\fR: Zur Inbetriebnahme des gerade eingerichteten Capi-Moduls muss der Rechner neu gestartet werden
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
 .br
-\fB10\fR: Die Initialisierung der Datenbank scheiterte und das Programm wurde deshalb beendet
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
 .br
-\fB11\fR: Die Überprüfung einer Datenbanktabelle scheiterte und das Programm wurde deshalb beendet
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
 .br
-\fB17\fR: Gabelung zu weiterem thread misslungen
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
 .br
-\fB98\fR: Programmaufruf abgebrochen, da es bereits einmal läuft
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
 .br
-\fB99\fR: Suchbefehl mit \fB²DPROG² -fd 2\fR bei Dateilink misslungen
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
 .br
-\fB113\fR: Ein SQL-Befehl für die Mariadb-Datenbank scheiterte an sonstigem Fehler
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
 .br
-\fB115\fR: Eine Datenbankeintragung scheiterte an voller Festplatte
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
 .br
-Nach Aufruf von \fB²DPROG² -vi\fR oder \fB²DPROG² -vs\fR wird ggf. der Rückgabewert von \fBvi\fR/\fBvim\fR weitergeleitet
-.SH FEHLER
-Fehler bitte mit u.a. dem Wort '²DPROG²' in der Email-Ueberschrift melden. 
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
 .br
-Bitte auch melden, wenn sich Änderungsbedarf durch andere Hard- bzw. Software ergeben.
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
 .br
-.SH PROGRAMMÄNDERUNG
-Durch Aufruf von '\fBsh viall\fR' mit den üblichen '\fBvim\fR'-Befehlen, gefolgt von '\fBmake\fR' und '\fBmake install\fR' vom Installationsverzeichnis ('\fB~/²DPROG²\fR) aus können Sie das Programm ändern.
-
-.SH HAFTUNG
-Das Programm wurde mit bester Absicht entwickelt und durch den Autor getestet.
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
 .br
-Trotzdem kann der Autor für keine Schäden haften, die durch das Programm entstehen könnten
-
-.SH AUTOR
-Gerald Schade (geraldschade@gmx.de; www.diabdachau.de)
+\fB -vz, --bdtvz <pfad>\fR: Verzeichnis der BDT-Dateien ('\fB/DATA/eigene Dateien/TMExport\fR')
+.br
+\fB -dbn, --dbname <string>\fR: Name der Datebank ('\fBquelle\fR')
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10076 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -vz, --bdtvz <pfad>\fR: Verzeichnis der BDT-Dateien ('\fB/DATA/eigene Dateien/TMExport\fR')
+.br
+\fB -dbn, --dbname <string>\fR: Name der Datebank ('\fBquelle\fR')
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10075 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -vz, --bdtvz <pfad>\fR: Verzeichnis der BDT-Dateien ('\fB/DATA/eigene Dateien/TMExport\fR')
+.br
+\fB -dbn, --dbname <string>\fR: Name der Datebank ('\fBquelle\fR')
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10073 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -vz, --bdtvz <pfad>\fR: Verzeichnis der BDT-Dateien ('\fB/DATA/eigene Dateien/TMExport\fR')
+.br
+\fB -dbn, --dbname <string>\fR: Name der Datebank ('\fBquelle\fR')
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10072 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -vz, --bdtvz <pfad>\fR: Verzeichnis der BDT-Dateien ('\fB/DATA/eigene Dateien/TMExport\fR')
+.br
+\fB -dbn, --dbname <string>\fR: Name der Datebank ('\fBquelle\fR')
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10071 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -vz, --bdtvz <pfad>\fR: Verzeichnis der BDT-Dateien ('\fB/DATA/eigene Dateien/TMExport\fR')
+.br
+\fB -dbn, --dbname <string>\fR: Name der Datebank ('\fBquelle\fR')
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10070 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -vz, --bdtvz <pfad>\fR: Verzeichnis der BDT-Dateien ('\fB/DATA/eigene Dateien/TMExport\fR')
+.br
+\fB -dbn, --dbname <string>\fR: Name der Datebank ('\fBquelle\fR')
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10069 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -vz, --bdtvz <pfad>\fR: Verzeichnis der BDT-Dateien ('\fB/DATA/eigene Dateien/TMExport\fR')
+.br
+\fB -dbn, --dbname <string>\fR: Name der Datebank ('\fBquelle\fR')
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10062 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -vz, --bdtvz <pfad>\fR: Verzeichnis der BDT-Dateien ('\fB/DATA/eigene Dateien/TMExport\fR')
+.br
+\fB -dbn, --dbname <string>\fR: Name der Datebank ('\fBquelle\fR')
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10060 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -vz, --bdtvz <pfad>\fR: Verzeichnis der BDT-Dateien ('\fB/DATA/eigene Dateien/TMExport\fR')
+.br
+\fB -dbn, --dbname <string>\fR: Name der Datebank ('\fBquelle\fR')
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10059 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -vz, --bdtvz <pfad>\fR: Verzeichnis der BDT-Dateien ('\fB/DATA/eigene Dateien/TMExport\fR')
+.br
+\fB -dbn, --dbname <string>\fR: Name der Datebank ('\fBquelle\fR')
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10058 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -vz, --bdtvz <pfad>\fR: Verzeichnis der BDT-Dateien ('\fB/DATA/eigene Dateien/TMExport\fR')
+.br
+\fB -dbn, --dbname <string>\fR: Name der Datebank ('\fBquelle\fR')
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10055 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -vz, --bdtvz <pfad>\fR: Verzeichnis der BDT-Dateien ('\fB/DATA/eigene Dateien/TMExport\fR')
+.br
+\fB -dbn, --dbname <string>\fR: Name der Datebank ('\fBquelle\fR')
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10054 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -vz, --bdtvz <pfad>\fR: Verzeichnis der BDT-Dateien ('\fB/DATA/eigene Dateien/TMExport\fR')
+.br
+\fB -dbn, --dbname <string>\fR: Name der Datebank ('\fBquelle\fR')
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10053 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -vz, --bdtvz <pfad>\fR: Verzeichnis der BDT-Dateien ('\fB/DATA/eigene Dateien/TMExport\fR')
+.br
+\fB -dbn, --dbname <string>\fR: Name der Datebank ('\fBquelle\fR')
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10049 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -vz, --bdtvz <pfad>\fR: Verzeichnis der BDT-Dateien ('\fB/DATA/eigene Dateien/TMExport\fR')
+.br
+\fB -dbn, --dbname <string>\fR: Name der Datebank ('\fBquelle\fR')
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10047 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -vz, --bdtvz <pfad>\fR: Verzeichnis der BDT-Dateien ('\fB/DATA/eigene Dateien/TMExport\fR')
+.br
+\fB -dbn, --dbname <string>\fR: Name der Datebank ('\fBquelle\fR')
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10045 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -vz, --bdtvz <pfad>\fR: Verzeichnis der BDT-Dateien ('\fB/DATA/eigene Dateien/TMExport\fR')
+.br
+\fB -dbn, --dbname <string>\fR: Name der Datebank ('\fBquelle\fR')
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10044 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -vz, --bdtvz <pfad>\fR: Verzeichnis der BDT-Dateien ('\fB/DATA/eigene Dateien/TMExport\fR')
+.br
+\fB -dbn, --dbname <string>\fR: Name der Datebank ('\fBquelle\fR')
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10043 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -vz, --bdtvz <pfad>\fR: Verzeichnis der BDT-Dateien ('\fB/DATA/eigene Dateien/TMExport\fR')
+.br
+\fB -dbn, --dbname <string>\fR: Name der Datebank ('\fBquelle\fR')
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10042 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -vz, --bdtvz <pfad>\fR: Verzeichnis der BDT-Dateien ('\fB/DATA/eigene Dateien/TMExport\fR')
+.br
+\fB -dbn, --dbname <string>\fR: Name der Datebank ('\fBquelle\fR')
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10041 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -vz, --bdtvz <pfad>\fR: Verzeichnis der BDT-Dateien ('\fB/DATA/eigene Dateien/TMExport\fR')
+.br
+\fB -dbn, --dbname <string>\fR: Name der Datebank ('\fBquelle\fR')
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10040 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -vz, --bdtvz <pfad>\fR: Verzeichnis der BDT-Dateien ('\fB/DATA/eigene Dateien/TMExport\fR')
+.br
+\fB -dbn, --dbname <string>\fR: Name der Datebank ('\fBquelle\fR')
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10039 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -vz, --bdtvz <pfad>\fR: Verzeichnis der BDT-Dateien ('\fB/DATA/eigene Dateien/TMExport\fR')
+.br
+\fB -dbn, --dbname <string>\fR: Name der Datebank ('\fBquelle\fR')
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10038 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -vz, --bdtvz <pfad>\fR: Verzeichnis der BDT-Dateien ('\fB/DATA/eigene Dateien/TMExport\fR')
+.br
+\fB -dbn, --dbname <string>\fR: Name der Datebank ('\fBquelle\fR')
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10036 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -vz, --bdtvz <pfad>\fR: Verzeichnis der BDT-Dateien ('\fB/DATA/eigene Dateien/TMExport\fR')
+.br
+\fB -dbn, --dbname <string>\fR: Name der Datebank ('\fBquelle\fR')
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10032 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -vz, --bdtvz <pfad>\fR: Verzeichnis der BDT-Dateien ('\fB/DATA/eigene Dateien/TMExport\fR')
+.br
+\fB -dbn, --dbname <string>\fR: Name der Datebank ('\fBquelle\fR')
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10031 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -vz, --bdtvz <pfad>\fR: Verzeichnis der BDT-Dateien ('\fB/DATA/eigene Dateien/TMExport\fR')
+.br
+\fB -dbn, --dbname <string>\fR: Name der Datebank ('\fBquelle\fR')
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10030 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -vz, --bdtvz <pfad>\fR: Verzeichnis der BDT-Dateien ('\fB\fR')
+.br
+\fB -dbn, --dbname <pfad>\fR: Name der Datebank ('\fBquelle\fR')
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10022 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -vz, --bdtvz <pfad>\fR: Verzeichnis der BDT-Dateien ('\fB\fR')
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10021 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -vz, --bdtvz <pfad>\fR: Verzeichnis der BDT-Dateien ('\fB\fR')
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10020 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -vz, --bdtvz <pfad>\fR: Verzeichnis der BDT-Dateien ('\fB\fR')
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10018 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -vz, --bdtvz <pfad>\fR: Verzeichnis der BDT-Dateien ('\fB\fR')
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10015 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10011 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10010 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10009 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10007 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10006 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10004 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
+.SH FUNKTIONSWEISE
+.br
+                                                                                                                                                           \fRProgramm: \fB/root/pznbdt/pznbdt\fR, V: \fB0.10001 \fR
+.br
+\fBOptionen, die nicht gespeichert werden (aktueller Wert in Klammern): \fR
+.br
+\fB -st, --stop\fR: pznbdt anhalten (\fB0\fR)
+.br
+\fB -n, --dszahl <string>\fR: Zahl der aufzulistenden Datensaetze = <zahl> statt ('\fB30\fR')
+.br
+\fB -sqlw, --sql-wortreich\fR: Bildschirmausgabe mit SQL-Befehlen (\fB0\fR)
+.br
+\fB -w, --wortreich\fR: Bildschirmausgabe gespraechiger (\fB0\fR)
+.br
+\fB -stu, --stumm\fR: Bildschirmausgabe ganz stumm (\fB0\fR)
+.br
+\fB -ldn, --logdateineu\fR: logdatei vorher loeschen (\fB0\fR)
+.br
+\fB -kd, --konfdatei <string>\fR: verwendet Konfigurationsdatei <string> anstatt ('\fB\fR')
+.br
+\fB -h, --hilfe\fR: Erklaerung haeufiger Optionen (\fB3\fR)
+.br
+\fB -lh, --langhilfe\fR: Erklaerung aller Optionen (\fB3\fR)
+.br
+\fB -vi, --vi\fR: Konfigurationsdatei , Logdatei usw. bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -zkf, --konfzeig\fR: Konfigurationsdateinamenanzeigen (\fB0\fR)
+.br
+\fB -kschrb, --kschreib\fR: Konfigurationsdatei schreiben (\fB0\fR)
+.br
+\fB -vs, --vs\fR: Quelldateien in \fB/root/pznbdt\fR bearbeiten/sehen (beenden mit ':qa') (\fB0\fR)
+.br
+\fB -rf, --rueckfragen\fR: alle Parameter werden abgefragt (darunter einige hier nicht gezeigte) (\fB0\fR)
+.br
+\fB -krf, --keinerueckfragen\fR: keine Rueckfragen, z.B. fuer Aufruf aus cron (\fB0\fR)
+.br
+\fB -info, --version\fR: Zeigt die Programmversion an (\fB0\fR)
+.br
+\fBOptionen z.Speich. i.Konfigur'datei (vorausg. '1'=doch nicht speichern, 'no'=Gegenteil, z.B. '-noocra','-1noocri'):\fR
+.br
+\fB -host, --host <string>\fR: verwendet die Datenbank auf Host <string> anstatt auf ('\fBlocalhost\fR')
+.br
+\fB -muser, --muser <string>\fR: verwendet fuer MySQL/MariaDB den Benutzer <string> anstatt ('\fB\fR')
+.br
+\fB -mpwd, --mpwd <string>\fR: verwendet fuer MySQL/MariaDB das Passwort <string>
+.br
+\fB -db, --datenbank <string>\fR: verwendet die Datenbank <string> anstatt ('\fB\fR')
+.br
+\fB -sp, --sprache <string>\fR: Language/Sprache/Lingue/Lingua [\fBd\fReutsch,\fBe\fRnglisch] ('\fBd\fR')
+.br
+\fB -lvz, --logvz <pfad>\fR: waehlt als Logverzeichnis <pfad>, derzeit ('\fB/var/log\fR')
+.br
+\fB -ld, --logdname <string>\fR: logdatei <string> (im Pfad '\fB/var/log\fR') wird verwendet anstatt ('\fBpznbdt.log\fR')
+.br
+\fB -l, --log <zahl>\fR: protokolliert ausfuehrlich in Datei '\fB/var/log/pznbdt.log\fR' (sonst knapper) (\fB0\fR)
+.br
+\fB -cm, --cronminuten <string>\fR: alle wieviel Minuten soll \fBpznbdt\fR ueber crontab aufgerufen werden (0=gar nicht), anstatt  ('\fB0\fR')
+.br
+\fB -autoakt, --autoaktual <zahl>\fR: Programm automatisch aktualisieren (\fB1\fR)
