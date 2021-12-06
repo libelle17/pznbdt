@@ -246,6 +246,7 @@ void hhcl::lese()
 					string zeile, xml;
 					uchar stand{0};
 					while (getline(bdt,zeile)) {
+						// es können mehrere Pläne hintereinander kommen vor der PDF-Datei
            if (/*stand<2 && */zeile.substr(3,4)=="6299" && zeile.find("AMTS:MP")!=string::npos) {
 						 stand=1;
 						 xml=zeile; 
@@ -260,13 +261,13 @@ void hhcl::lese()
 					 } else if (stand==3 && zeile.substr(3,4)=="6324") {
 						 stand=0;
 						 if (zeile.find("#CGM BMP gedruckt#")!=string::npos) {
-							 caus<<xml<<endl;
+//							 caus<<xml<<endl;
                svec mpv,mpp;
 							 aufSplit(&mpv,xml,"<AMTS:");
 							 for(size_t k=0;k<mpv.size();k++) {
 								 const string li{mpv[k].substr(0,2)};
 								 if (li=="S "||li=="M "||li=="R "||li=="X ") { // ||li=="W ")
-									 caus<<" "<<k<<" "<<blau<<mpv[k]<<schwarz<<endl;
+//									 caus<<" "<<k<<" "<<blau<<mpv[k]<<schwarz<<endl;
 									 size_t pp{mpv[k].find(" p=\"")};
                    if (pp!=string::npos) {
 										 pp+=4;
