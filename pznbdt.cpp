@@ -246,7 +246,7 @@ void hhcl::lese()
 					string zeile, xml;
 					uchar stand{0};
 					while (getline(bdt,zeile)) {
-           if (!stand && zeile.substr(3,4)=="6299" && zeile.find("AMTS:MP")!=string::npos) {
+           if (stand<2 && zeile.substr(3,4)=="6299" && zeile.find("AMTS:MP")!=string::npos) {
 						 stand=1;
 						 xml=zeile; 
 					 } else if (stand==1 && zeile.substr(3,13)=="6298IsPrinted") {
@@ -260,13 +260,13 @@ void hhcl::lese()
 					 } else if (stand==3 && zeile.substr(3,4)=="6324") {
 						 stand=0;
 						 if (zeile.find("#CGM BMP gedruckt#")!=string::npos) {
-//							 caus<<xml<<endl;
+							 caus<<xml<<endl;
                svec mpv,mpp;
 							 aufSplit(&mpv,xml,"<AMTS:");
 							 for(size_t k=0;k<mpv.size();k++) {
 								 const string li{mpv[k].substr(0,2)};
-								 if (li=="S "||li=="M "||li=="R "||li=="X "||li=="W ") {
-//									 caus<<" "<<k<<" "<<mpv[k]<<endl;
+								 if (li=="S "||li=="M "||li=="R "||li=="X ") { // ||li=="W ")
+									 caus<<" "<<k<<" "<<blau<<mpv[k]<<schwarz<<endl;
 									 size_t pp{mpv[k].find(" p=\"")};
                    if (pp!=string::npos) {
 										 pp+=4;
@@ -277,36 +277,94 @@ void hhcl::lese()
 									 }
 								 }
 							 }
-							 for (size_t m=0;m<mpp.size();m++) {
-								 caus<<m<<" "<<mpp[m]<<endl;
+							 svec wi,han;
+							 vector<size_t> xletzt;
+							 for (size_t m=0;m<=mpp.size();m++) {
+								 wi<<"";
+								 han<<"";
+								 xletzt.push_back(0);
 							 }
 //							 caus<<zeile<<endl;
 							 ulong p1{zeile.find("$\\TurboMed")+10}, p2{zeile.find("#pdf#")-p1};
 							 string bdtf{"/DATA/turbomed"+ersetze(zeile.substr(p1,p2).c_str(),"\\","/")};
+							 caus<<blau<<bdtf<<schwarz<<":"<<endl;
 							 svec pdfv;
-							 systemrueck("pdftotext -bbox \""+bdtf+"\" -",1,1,&pdfv);
-							 for(size_t j=0;j<pdfv.size();j++) {
-								 caus<<j<<" "<<pdfv[j]<<endl;
-							 }
+							 if (!systemrueck("pdftotext -bbox \""+bdtf+"\" -",0,1,&pdfv)) {
+								 size_t seiten{0};
+								 for(size_t j=0;j<pdfv.size();j++) {
+									 if (pdfv[j].find("</page>")!=string::npos) seiten++;
+									 size_t px{pdfv[j].find(" xMin=\"")};
+									 if (px!=string::npos) {
+										 px+=7;
+										 const size_t pxe{pdfv[j].find("\"",px)};
+										 double x{atof(pdfv[j].substr(px,pxe-px).c_str())};
+										 size_t py{pdfv[j].find(" yMin=\"",pxe)};
+										 if (py!=string::npos) {
+											 py+=7;
+											 const size_t pye{pdfv[j].find("\"",py)};
+											 double y{atof(pdfv[j].substr(py,pye-py).c_str())};
+
+											 size_t pkz{pdfv[j].find(">",pye)};
+											 if (pkz!=string::npos) {
+												 pkz+=1;
+												 const size_t pka{pdfv[j].find("<",pkz)};
+												 string inh{pdfv[j].substr(pkz,pka-pkz)};
+												 size_t ypos;
+												 if (y>540||y<170) { ypos=-1; } else { ypos=((size_t)y-170)/25+(15*seiten); }
+												 size_t xpos{(size_t)(x>=27?x>=140?x>=265?3:2:1:0)};
+//												 caus<<violett<<"ypos: "<<schwarz<<ypos<<", y: "<<violett<<y<<schwarz<<endl;
+//												 caus<<"mpp.size(): "<<mpp.size()<<", ypos: "<<ypos<<endl;
+												 if ((xpos==1 || xpos==2)&&ypos<=mpp.size()) {
+													 if (xpos==1) {
+														 if (wi[ypos]!="") wi[ypos]+=" ";
+														 wi[ypos]+=inh;
+													 } else  {
+														 if ((((inh[0]<'a'||inh[0]>'z')&&
+																		 ((int)(uchar)inh[0]!=195||
+																			((int)(uchar)inh[1]!=164&&(int)(uchar)inh[1]!=182&&(int)(uchar)inh[1]!=188&&
+																			 (int)(uchar)inh[1]!=159&&(int)(uchar)inh[1]!=169&&(int)(uchar)inh[1]!=168&&(int)(uchar)inh[1]!=160)))||
+																	 x>xletzt[ypos])&&
+																 han[ypos]!="") {
+															 han[ypos]+=" ";
+														 }
+														 han[ypos]+=inh;
+														 xletzt[ypos]=x;
+													 }
+													 //												 caus<<(int)(uchar)inh[0]<<" "<<(int)(uchar)inh[1]<<endl;
+//													 caus<<j<<" "<<pdfv[j]<<endl;
+//													 caus<<"  "<<x<<" "<<xpos<<" "<<y<<" "<<ypos<<" "<<inh<<endl;
+												 }
+											 }
+										 }
+									 }
+								 }
+								 for (size_t m=0;m<mpp.size();m++) {
+//									 if (mpp[m]!="")
+										 caus<<m<<" "<<mpp[m]<<" "<<blau<<wi[m]<<gruen<<" "<<han[m]<<schwarz<<" "<<endl;
+								 }
+								 /*							 } else {
+																 caus<<"Fehler!!!!"<<endl;
+									*/ 
+						 }
 						 }
 					 }
 					}
 				}
 				if (0) {
-				RS rins(My,tdatbdt); // muss fuer sammeln vor while stehen
-				auto start = std::chrono::system_clock::now();
-				std::time_t jetzt = std::chrono::system_clock::to_time_t(start);
-				vector<instyp> einf;
-				einf.push_back(/*2*/instyp(My->DBS,"Pfad",bdtvz));
-				einf.push_back(/*2*/instyp(My->DBS,"Datei",erg[i]));
-				einf.push_back(/*2*/instyp(My->DBS,"verarbeitet",&jetzt));
-				svec eindfeld; eindfeld<<"id";
-				rins.tbins(&einf,aktc,/*sammeln=*/0,/*obverb=*/ZDB,/*idp=*/0,/*eindeutig=*/0,eindfeld); 
-				if (rins.fnr) {
-					fLog(Tx[T_Fehler_af]+drots+ltoan(rins.fnr)+schwarz+Txk[T_bei]+tuerkis+rins.sql+schwarz+": "+blau+rins.fehler+schwarz,1,1);
-				} else {
-					caus<<erg[i]<<" eingefuegt: "<<erg[i]<<endl;
-				}
+					RS rins(My,tdatbdt); // muss fuer sammeln vor while stehen
+					auto start = std::chrono::system_clock::now();
+					std::time_t jetzt = std::chrono::system_clock::to_time_t(start);
+					vector<instyp> einf;
+					einf.push_back(/*2*/instyp(My->DBS,"Pfad",bdtvz));
+					einf.push_back(/*2*/instyp(My->DBS,"Datei",erg[i]));
+					einf.push_back(/*2*/instyp(My->DBS,"verarbeitet",&jetzt));
+					svec eindfeld; eindfeld<<"id";
+					rins.tbins(&einf,aktc,/*sammeln=*/0,/*obverb=*/ZDB,/*idp=*/0,/*eindeutig=*/0,eindfeld); 
+					if (rins.fnr) {
+						fLog(Tx[T_Fehler_af]+drots+ltoan(rins.fnr)+schwarz+Txk[T_bei]+tuerkis+rins.sql+schwarz+": "+blau+rins.fehler+schwarz,1,1);
+					} else {
+						caus<<erg[i]<<" eingefuegt: "<<erg[i]<<endl;
+					}
 				}
 			}
 		}
@@ -330,12 +388,12 @@ void hhcl::virtschlussanzeige()
 {   //ω
 	dhcl::virtschlussanzeige(); //α
 } // void hhcl::virtschlussanzeige
- 
+
 // wird aufgerufen in: main
 void hhcl::virtautokonfschreib()
 {
-// const int altobverb=obverb;
-// obverb=1;
+	// const int altobverb=obverb;
+	// obverb=1;
 	hLog(violetts+Txk[T_autokonfschreib]+schwarz+", "+Txk[T_zu_schreiben]+((rzf||hccd.obzuschreib)?Txk[T_ja]:Txk[T_nein])); //ω
 	struct stat kstat{0}; //α
 	if (lstat(akonfdt.c_str(),&kstat))
