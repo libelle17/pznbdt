@@ -246,7 +246,7 @@ void hhcl::lese()
 					string zeile, xml;
 					uchar stand{0};
 					while (getline(bdt,zeile)) {
-           if (stand<2 && zeile.substr(3,4)=="6299" && zeile.find("AMTS:MP")!=string::npos) {
+           if (/*stand<2 && */zeile.substr(3,4)=="6299" && zeile.find("AMTS:MP")!=string::npos) {
 						 stand=1;
 						 xml=zeile; 
 					 } else if (stand==1 && zeile.substr(3,13)=="6298IsPrinted") {
