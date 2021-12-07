@@ -49,6 +49,8 @@ char const *DPROG_T[T_MAX+1][SprachZahl]={
 	{"Fuege ein: ","Inserting: "}, //ω
 	// T_pruefdatbdt,
 	{"pruefdatbdt()","testdatbdt()"},
+	// T_lese
+	{"lese()","reade()"},
 	// T_eindeutige_Identifikation
 	{"eindeutige Identifikation","distinct identification"},
 	// T_Pfad_ohne_Dateinamen
@@ -222,11 +224,35 @@ void hhcl::pruefdatbdt(DB *My, const size_t aktc, const int obverb, const int ob
 	} // if (!direkt)
 } // int pruefdatbdt(DB *My, string touta, int obverb, int oblog, uchar direkt=0)
 
+string GetMed(string Lang, size_t einrueck=0)
+{
+	string links,GMed{boost::locale::to_upper(Lang,loc)};
+	if (Lang.length()>0) {
+		size_t lzpos{GMed.find(" ",1+einrueck)};
+		if (lzpos>0) {
+			links=GMed.substr(0,lzpos-1);
+			if (links=="ACCU"||links=="ACCU-CHEK"||links=="HUMALOG"||links=="LIPROLOG"||links=="INSUMAN"
+					||links=="BERLINSULIN"||links=="HUMINSULIN"||links=="INSULIN") {
+				lzpos=GMed.find(" ",1+(links.length()+1>einrueck?links.length()+1:einrueck));
+				if (lzpos!=string::npos) while (GMed.substr(lzpos,1)==" "&&lzpos<=GMed.length()) lzpos++;
+			}
+			if (links=="ACCU"||links.find("®")!=string::npos) {
+				lzpos=GMed.find(" ",1+(lzpos>einrueck?lzpos:einrueck));
+				if (lzpos!=string::npos) while (GMed.substr(lzpos,1)==" "&&lzpos<=GMed.length()) lzpos++;
+			}
+			if (lzpos>0&&lzpos<GMed.length()) GMed.resize(lzpos);
+			gtrim(&GMed);
+		}
+	}
+ return GMed; 
+} // string GetMed(string Lang, size_t einrueck=0)
 
 void hhcl::lese()
 {
+	hLog(violetts+Tx[T_lese]+schwarz);
 	const string datei{"*.bdt"};
-	const size_t aktc{0};
+	const size_t aktc{0}; 
+	const uchar scharf{1};
 	svec erg;
 	systemrueck("find \""+bdtvz+"\" -iname "+datei+" -print0 | /usr/bin/xargs -0 ls -l --time-style=full-iso | sort -k6,7|rev|cut -d/ -f1|rev",obverb,oblog,&erg);
 	for(size_t i=0;i<erg.size();i++) {
@@ -271,8 +297,10 @@ void hhcl::lese()
 									 size_t pp{mpv[k].find(" p=\"")};
                    if (pp!=string::npos) {
 										 pp+=4;
-										 const size_t pe{mpv[k].find("\"",pp)};
-										 mpp<<mpv[k].substr(pp,pe-pp);
+										 const size_t pe{mpv[k].find("\"",pp)}; // z.B. Moxonidin 0228074 statt 228074, Doxepin 0461706 statt 461706
+										 string mppe{mpv[k].substr(pp,pe-pp)};
+//										 while (mppe.length()<7) mppe='0'+mppe;
+										 mpp<<mppe;
 									 } else {
 										 mpp<<"";
 									 }
@@ -286,11 +314,13 @@ void hhcl::lese()
 								 xletzt.push_back(0);
 							 }
 //							 caus<<zeile<<endl;
-							 ulong p1{zeile.find("$\\TurboMed")+10}, p2{zeile.find("#pdf#")-p1};
-							 string bdtf{"/DATA/turbomed"+ersetze(zeile.substr(p1,p2).c_str(),"\\","/")};
+							 ulong p1{zeile.find("$\\TurboMed")+10}, p2{zeile.find("#")-p1};
+							 const char ue[]{(char)129,0},oe[]{(char)148,0},Oe[]{(char)153,0},ae[]{(char)132,0};
+							 string bdtf{"/DATA/turbomed"+ersetze(ersetze(ersetze(ersetze(ersetze(zeile.substr(p1,p2).c_str(),"\\","/").c_str(),ue,"ü").c_str(),oe,"ö").c_str(),Oe,"Ö").c_str(),ae,"ä")};
 							 caus<<blau<<bdtf<<schwarz<<":"<<endl;
 							 svec pdfv;
-							 if (!systemrueck("pdftotext -bbox \""+bdtf+"\" -",0,1,&pdfv)) {
+							 string befehl{"pdftotext -bbox \""+bdtf+"\" -"};
+							 if (!systemrueck(befehl,0,0,&pdfv)) {
 								 size_t seiten{0};
 								 for(size_t j=0;j<pdfv.size();j++) {
 									 if (pdfv[j].find("</page>")!=string::npos) seiten++;
@@ -313,8 +343,8 @@ void hhcl::lese()
 												 size_t ypos;
 												 if (y>540||y<170) { ypos=-1; } else { ypos=((size_t)y-170)/25+(15*seiten); }
 												 size_t xpos{(size_t)(x>=27?x>=140?x>=265?3:2:1:0)};
-//												 caus<<violett<<"ypos: "<<schwarz<<ypos<<", y: "<<violett<<y<<schwarz<<endl;
-//												 caus<<"mpp.size(): "<<mpp.size()<<", ypos: "<<ypos<<endl;
+												 //												 caus<<violett<<"ypos: "<<schwarz<<ypos<<", y: "<<violett<<y<<schwarz<<endl;
+												 //												 caus<<"mpp.size(): "<<mpp.size()<<", ypos: "<<ypos<<endl;
 												 if ((xpos==1 || xpos==2)&&ypos<=mpp.size()) {
 													 if (xpos==1) {
 														 if (wi[ypos]!="") wi[ypos]+=" ";
@@ -330,28 +360,31 @@ void hhcl::lese()
 														 }
 														 han[ypos]+=inh;
 														 xletzt[ypos]=x;
-													 }
+													 } // 													 if (xpos==1) else
 													 //												 caus<<(int)(uchar)inh[0]<<" "<<(int)(uchar)inh[1]<<endl;
-//													 caus<<j<<" "<<pdfv[j]<<endl;
-//													 caus<<"  "<<x<<" "<<xpos<<" "<<y<<" "<<ypos<<" "<<inh<<endl;
-												 }
-											 }
-										 }
+													 //													 caus<<j<<" "<<pdfv[j]<<endl;
+													 //													 caus<<"  "<<x<<" "<<xpos<<" "<<y<<" "<<ypos<<" "<<inh<<endl;
+												 } // 												 if ((xpos==1 || xpos==2)&&ypos<=mpp.size())
+											 } // 											 if (pkz!=string::npos)
+										 } // 										 if (py!=string::npos)
+									 } // 									 if (px!=string::npos)
+								 } // 								 for(size_t j=0;j<pdfv.size();j++)
+								 for (size_t m=0;m<mpp.size();m++) {
+									 //									 if (mpp[m]!="")
+									 const string ma{GetMed(han[m])};
+									 caus<<m<<" "<<mpp[m]<<" "<<blau<<wi[m]<<schwarz<<" "<<ma<<" "<<gruen<<han[m]<<schwarz<<" "<<endl;
+									 const my_ulonglong pzn{(my_ulonglong)atol(mpp[m].c_str())};
+									 if (scharf && pzn) {
+										 sql="UPDATE medplan SET Medikament=\""+han[m]+"\",MedAnfang=\""+ma+"\",Wirkstoff=\""+wi[m]+"\",ergaenzt=1 WHERE PZN="+mpp[m]+" AND Medikament=''";
+										 RS upd(My,sql,aktc,ZDB);
 									 }
 								 }
-								 for (size_t m=0;m<mpp.size();m++) {
-//									 if (mpp[m]!="")
-										 caus<<m<<" "<<mpp[m]<<" "<<blau<<wi[m]<<gruen<<" "<<han[m]<<schwarz<<" "<<endl;
-								 }
-								 /*							 } else {
-																 caus<<"Fehler!!!!"<<endl;
-									*/ 
-						 }
-						 }
-					 }
-					}
-				}
-				if (0) {
+							 }
+						 } // 						 if (zeile.find("#CGM BMP gedruckt#")!=string::npos)
+					 } // 					  else if (stand==3 && zeile.substr(3,4)=="6324")
+					} // 					while (getline(bdt,zeile))
+				} // 				if (bdt.is_open())
+				if (scharf) {
 					RS rins(My,tdatbdt); // muss fuer sammeln vor while stehen
 					auto start = std::chrono::system_clock::now();
 					std::time_t jetzt = std::chrono::system_clock::to_time_t(start);
@@ -366,15 +399,15 @@ void hhcl::lese()
 					} else {
 						caus<<erg[i]<<" eingefuegt: "<<erg[i]<<endl;
 					}
-				}
-			}
-		}
+				} // if (0)
+			} // 			if (!gef)
+		} // 		if (!rtb.obqueryfehler)
 		if (My->fehnr) {
 			fLog(rots+ltoan(My->fehnr)+schwarz+Tx[T_Fehler_beim_Oeffnen_der_Datenbank]+dbname,obverb,oblog);
 		} // 	if (My->fehnr)
-
 		//		systemrueck("cat \"/"+erg[i]+"\"",1);
 	} // 	for(size_t i=0;i<erg.size();i++)
+	caus<<"Fertig mit lese()"<<endl;
 } // void hhcl::lese
 
 void hhcl::pvirtfuehraus() //α

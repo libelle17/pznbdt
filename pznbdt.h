@@ -22,6 +22,7 @@ enum T_
 	T_Datenbank_nicht_initialisierbar_breche_ab,
 	T_Fuege_ein, //ω
 	T_pruefdatbdt,
+	T_lese,
 	T_eindeutige_Identifikation,
   T_Pfad_ohne_Dateinamen,
 	T_Dateiname,
