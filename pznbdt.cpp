@@ -383,8 +383,12 @@ void hhcl::lese()
 									 caus<<m<<" "<<mpp[m]<<" "<<blau<<wi[m]<<schwarz<<" "<<ma<<" "<<gruen<<han[m]<<schwarz<<" "<<endl;
 									 const my_ulonglong pzn{(my_ulonglong)atol(mpp[m].c_str())};
 									 if (scharf && pzn) {
+										 sql="SET FOREIGN_KEY_CHECKS=0;";
+										 RS vupd(My,sql,aktc,ZDB);
 										 sql="UPDATE medplan SET Medikament=\""+han[m]+"\",MedAnfang=\""+ma+"\",Wirkstoff=\""+wi[m]+"\",ergaenzt=1 WHERE PZN="+mpp[m]; // +" AND Medikament=''"; // am 23.3.22 entfernt, da PZN 17414467 falsch vergeben war für L-Thyrox Hexal 75 statt Toujeo
 										 RS upd(My,sql,aktc,ZDB);
+										 sql="SET FOREIGN_KEY_CHECKS=1;";
+										 RS nupd(My,sql,aktc,ZDB);
 									 }
 								 }
 							 }
