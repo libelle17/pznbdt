@@ -269,24 +269,31 @@ void hhcl::lese()
 			if (!gef) {
 				mdatei bdt(bdtvz+"/"+erg[i],ios::in|ios::binary);
 				if (bdt.is_open()) {
+					caus<<"BDT ist offen: "<<blau<<bdtvz<<"/"<<erg[i]<<schwarz<<endl;
 					string zeile, xml;
 					uchar stand{0};
 					while (getline(bdt,zeile)) {
+//						caus<<"Stand: "<<(int)stand<<" "<<gruen<<zeile<<schwarz<<endl;
 						// es können mehrere Pläne hintereinander kommen vor der PDF-Datei
            if (/*stand<2 && */zeile.substr(3,4)=="6299" && zeile.find("AMTS:MP")!=string::npos) {
 						 stand=1;
+//						 caus<<blau<<"Stand 1, Zeile: "<<violett<<zeile<<schwarz<<endl;
 						 xml=zeile; 
 					 } else if (stand==1 && zeile.substr(3,13)=="6298IsPrinted") {
 						 stand=2;
+//						 caus<<blau<<"Stand 2, Zeile: "<<schwarz<<zeile<<endl;
 					 } else if (stand==2 && zeile.substr(3,4)=="6299") {
 						 if (zeile.substr(7)=="false") {
 						  stand=0;
 						 } else {
+//						 caus<<blau<<"Stand 3, Zeile: "<<schwarz<<zeile<<endl;
 							 stand=3;
 						 }
 					 } else if (stand==3 && zeile.substr(3,4)=="6324") {
+//						 caus<<blau<<"Stand 4, Zeile: "<<schwarz<<zeile<<endl;
 						 stand=0;
 						 if (zeile.find("#CGM BMP gedruckt#")!=string::npos) {
+//							 caus<<"relevante Zeile: "<<blau<<zeile<<schwarz<<endl;
 //							 caus<<xml<<endl;
                svec mpv,mpp;
 							 aufSplit(&mpv,xml,"<AMTS:");
@@ -314,7 +321,7 @@ void hhcl::lese()
 								 xletzt.push_back(0);
 							 }
 //							 caus<<zeile<<endl;
-							 ulong p1{zeile.find("$\\TurboMed")+10}, p2{zeile.find("#")-p1};
+							 const ulong p1{zeile.find("$\\TurboMed")+10}, p2{zeile.find("#")-p1};
 							 const char ue[]{(char)129,0},oe[]{(char)148,0},Oe[]{(char)153,0},ae[]{(char)132,0};
 							 string bdtf{"/DATA/turbomed"+ersetze(ersetze(ersetze(ersetze(ersetze(zeile.substr(p1,p2).c_str(),"\\","/").c_str(),ue,"ü").c_str(),oe,"ö").c_str(),Oe,"Ö").c_str(),ae,"ä")};
 							 caus<<blau<<bdtf<<schwarz<<":"<<endl;
@@ -369,6 +376,7 @@ void hhcl::lese()
 										 } // 										 if (py!=string::npos)
 									 } // 									 if (px!=string::npos)
 								 } // 								 for(size_t j=0;j<pdfv.size();j++)
+								 caus<<"mpp.size(): "<<blau<<mpp.size()<<schwarz<<endl;
 								 for (size_t m=0;m<mpp.size();m++) {
 									 //									 if (mpp[m]!="")
 									 const string ma{GetMed(han[m])};
@@ -397,7 +405,7 @@ void hhcl::lese()
 					if (rins.fnr) {
 						fLog(Tx[T_Fehler_af]+drots+ltoan(rins.fnr)+schwarz+Txk[T_bei]+tuerkis+rins.sql+schwarz+": "+blau+rins.fehler+schwarz,1,1);
 					} else {
-						caus<<erg[i]<<" eingefuegt: "<<erg[i]<<endl;
+						caus<<blau<<"eingefuegt: "<<violett<<erg[i]<<schwarz<<endl;
 					}
 				} // if (0)
 			} // 			if (!gef)
@@ -407,7 +415,7 @@ void hhcl::lese()
 		} // 	if (My->fehnr)
 		//		systemrueck("cat \"/"+erg[i]+"\"",1);
 	} // 	for(size_t i=0;i<erg.size();i++)
-	caus<<"Fertig mit lese()"<<endl;
+	caus<<blau<<"Fertig mit lese()"<<schwarz<<endl;
 } // void hhcl::lese
 
 void hhcl::pvirtfuehraus() //α
