@@ -2599,23 +2599,23 @@ int systemrueck(const string& cmd, int obverb/*=0*/, int oblog/*=0*/, vector<str
 	} else { 
 		if (obverb||oblog) fLog(meld,obverb>0?-1:0,oblog); 
 	}
-	if (!rueck) if (obergebnisanzeig) {neurueck=1;rueck=new vector<string>;}
-	// #define systemrueckprofiler
+  if (!rueck) if (obergebnisanzeig) {neurueck=1;rueck=new vector<string>;}
+  // #define systemrueckprofiler
 #ifdef systemrueckprofiler
-	perfcl prf("systemrueck");
+  perfcl prf("systemrueck");
 #endif // systemrueckprofiler
-	// obsudc==0 nichts, obsudc==1: "sudo ", obsudc==2: "sudo -H "
-////	<<violett<<"bef: "<<blau<<bef<<schwarz<<endl;
-	if (rueck) {
-		//// <<gruen<<bef<<schwarz<<endl;
-		// caus<<violett<<bef<<schwarz<<endl;
-		if (FILE* pipe{popen(bef.c_str(),"r")}) {
-		/*//
-		int fd=fileno(pipe);
-		int flags=fcntl(fd, F_GETFL, 0);
-		flags|=O_NONBLOCK;
-		fcntl(fd, F_SETFL, flags);
-		*/
+  // obsudc==0 nichts, obsudc==1: "sudo ", obsudc==2: "sudo -H "
+  ////	<<violett<<"bef: "<<blau<<bef<<schwarz<<endl;
+  if (rueck) {
+    //// <<gruen<<bef<<schwarz<<endl;
+    // caus<<violett<<bef<<schwarz<<endl;
+    if (FILE* pipe{popen(bef.c_str(),"r")}) {
+      /*//
+        int fd=fileno(pipe);
+        int flags=fcntl(fd, F_GETFL, 0);
+        flags|=O_NONBLOCK;
+        fcntl(fd, F_SETFL, flags);
+       */
 #ifdef systemrueckprofiler
       prf.ausgeb();
 #endif
