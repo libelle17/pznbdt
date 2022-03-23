@@ -1284,8 +1284,8 @@ uchar DB::tuerweitern(const string& tabs, const string& feld,unsigned long wleng
           korr.str(std::string()); korr.clear();
           if (*(*cerg+1) && *(*cerg+2)) {
 						korr<<"ALTER TABLE `"<<tabs<<"` MODIFY COLUMN `"<<feld<<"` "<<*(*cerg+1)/*data_type*/<<"("<<wlength<<") "<<
-              (!strcasecmp(*(*cerg+2),"yes")?"NULL":"NOT NULL")<<" "<<string("DEFAULT ")+cjj(cerg,3)<<
-              " COMMENT '"<<ersetzAllezu(cjj(cerg,4),"'","\\'")<<"'";
+              (!strcasecmp(*(*cerg+2),"yes")?"NULL":"NOT NULL")<<" "<<string("DEFAULT '")+cjj(cerg,3)<<
+              "' COMMENT '"<<ersetzAllezu(cjj(cerg,4),"'","\\'")<<"'";
             RS spaltaend(this,korr.str(),aktc,obverb);
             if (spaltaend.fnr==1074 || spaltaend.fnr==1118) {
               korr.str(std::string()); korr.clear();
@@ -1303,8 +1303,8 @@ uchar DB::tuerweitern(const string& tabs, const string& feld,unsigned long wleng
               if (!neufeld.empty()) {
                 fLog(Txd[T_Aendere_Feld]+tabs+"."+feld+Txd[T_von]+*(*cerg+1)+Txd[T_auf]+neufeld,1,1);
 								korr<<"ALTER TABLE `"<<tabs<<"` MODIFY COLUMN `"<<feld<<"` "<<neufeld/*data_type*/<<" "<<
-                  (!strcasecmp(*(*cerg+2),"yes")?"NULL":"NOT NULL")<<" "<<string("DEFAULT ")+cjj(cerg,3)<<
-                  " COMMENT '"<<ersetzAllezu(cjj(cerg,4),"'","\\'")<<"'";
+                  (!strcasecmp(*(*cerg+2),"yes")?"NULL":"NOT NULL")<<" "<<string("DEFAULT '")+cjj(cerg,3)<<
+                  "' COMMENT '"<<ersetzAllezu(cjj(cerg,4),"'","\\'")<<"'";
                 RS spaltaend2(this,korr.str(),aktc,obverb);
               }
             } // if (fnr==1074) 
