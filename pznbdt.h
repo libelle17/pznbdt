@@ -18,23 +18,46 @@ enum T_
 	T_gestoppt,
 	T_n_k,
 	T_dszahl_l,
+	T_del_k,
+	T_del_l,
 	T_Zahl_der_aufzulistenden_Datensaetze_ist_zahl_statt,
+	T_bdt_Tabellen_vorher_loeschen,
 	T_Datenbank_nicht_initialisierbar_breche_ab,
 	T_Fuege_ein, //ω
-	T_pruefdatbdt,
+	T_pruefbdtdat,
+	T_pruefbdtnachw,
+	T_pruefbdtpdf,
 	T_lese,
 	T_eindeutige_Identifikation,
+	T_Bezug_auf_bdtdat,
+	T_Bezug_auf_bdtpdf,
+	T_Patienten_ID,
+	T_CreationDate_eMP,
+	T_Medikament,
+	T_MedAnf,
+	T_Wirkstoff,
+	T_PZN,
+	T_Znr,
+	T_medz,
+	T_pznz,
   T_Pfad_ohne_Dateinamen,
 	T_Dateiname,
+	T_geaendert,
 	T_verarbeitet,
-	T_datbdt,
+	T_Datei_samt_Pfad,
+	T_bdtdat,
+	T_bdtnachw,
+	T_bdtpdf,
 	T_bdtvz_k,
 	T_bdtvz_l,
 	T_Verzeichnis_der_BDT_Dateien,
 	T_Fehler_beim_Oeffnen_der_Datenbank,
 	T_dbn_k,
 	T_dbn_l,
+	T_nd_k,
+	T_nd_l,
 	T_Name_der_Datenbank,
+	T_parse_nur_Datei,
 	T_MAX //α
 }; // enum T_ //ω
 //α
@@ -43,7 +66,11 @@ class hhcl:public dhcl
 	private: 
 		uchar anhl=0;    // <DPROG> anhalten
 		string dszahl="30"; // Datensatzzahl fuer Tabellenausgaben
-		string tdatbdt="datbdt";
+		int mitloe{0}; // Tabellen vorher loeschen
+		const string nurdatei; // nur diese Datei einlesen
+		string tbdtnachw="bdtnachw";
+		string tbdtdat="bdtdat";
+		string tbdtpdf="bdtpdf";
 		string bdtvz="/DATA/eigene Dateien/TMExport";   // Verzeichnis der Labordateien
 		string dbname="quelle"; // Name der Datenbank
 		//ω
@@ -60,7 +87,9 @@ class hhcl:public dhcl
 		void virtautokonfschreib();
 		void anhalten(); //ω
 		void prueftbl();
-		void pruefdatbdt(DB *My, const size_t aktc, const int obverb, const int oblog, const uchar direkt=0);
+		void pruefbdtdat(DB *My, const size_t aktc, const int obverb, const int oblog, const uchar direkt=0);
+		void pruefbdtnachw(DB *My, const size_t aktc, const int obverb, const int oblog, const uchar direkt=0);
+		void pruefbdtpdf(DB *My, const size_t aktc, const int obverb, const int oblog, const uchar direkt=0);
 	protected: //α
 		// void virtlgnzuw(); // wird aufgerufen in: virtrueckfragen, parsecl, lieskonfein, hcl::hcl nach holsystemsprache
 		void virtVorgbAllg();
