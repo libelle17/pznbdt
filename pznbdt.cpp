@@ -367,6 +367,7 @@ void hhcl::lese()
 	const size_t aktc{0}; 
 	const uchar scharf{1};
 	string creatd,creatt,pid,bdid,pdfid;
+	set<size_t> patn;
 	uchar obcd{0},obct{0};
 	svec erg;
 //	systemrueck("find \""+bdtvz+"\" -iname "+datei+" -print0 | /usr/bin/xargs -0 ls -l --time-style=full-iso | sort -k6,7|rev|cut -d/ -f1|rev",obverb,oblog,&erg);
@@ -463,33 +464,32 @@ void hhcl::lese()
 							if (obcaus>0) caus<<rot<<bznr<<" "<<blau<<"Stand 6, Zeile: "<<schwarz<<zeile<<endl;
 							stand=0;
 							if (zeile.find("#CGM BMP gedruckt#")!=string::npos) {
-								if (obcaus>0) caus<<"relevante Zeile: "<<rot<<bznr<<" "<<blau<<zeile<<schwarz<<endl;
 								//							 caus<<xml<<endl;
-								svec mpv,mpp;
-								aufSplit(&mpv,xml,"<AMTS:");
-								for(size_t k=0;k<mpv.size();k++) {
-									const string li{mpv[k].substr(0,2)};
+								svec bdmpzl,pzv;
+								aufSplit(&bdmpzl,xml,"<AMTS:");
+								for(size_t k=0;k<bdmpzl.size();k++) {
+									const string li{bdmpzl[k].substr(0,2)};
 									if (li=="S "||li=="M "||li=="R "||li=="X ") { // ||li=="W ")
-										//									 caus<<" "<<k<<" "<<blau<<mpv[k]<<schwarz<<endl;
-										size_t pp{mpv[k].find(" p=\"")};
+										//									 caus<<" "<<k<<" "<<blau<<bdmpzl[k]<<schwarz<<endl;
+										size_t pp{bdmpzl[k].find(" p=\"")};
 										if (pp!=string::npos) {
 											pp+=4;
-											const size_t pe{mpv[k].find("\"",pp)}; // z.B. Moxonidin 0228074 statt 228074, Doxepin 0461706 statt 461706
-											string mppe{mpv[k].substr(pp,pe-pp)};
-											//										 while (mppe.length()<7) mppe='0'+mppe;
-											mpp<<mppe;
+											const size_t pe{bdmpzl[k].find("\"",pp)}; // z.B. Moxonidin 0228074 statt 228074, Doxepin 0461706 statt 461706
+											string pze{bdmpzl[k].substr(pp,pe-pp)};
+											//										 while (pze.length()<7) pze='0'+pze;
+											pzv<<pze;
 											size_t xpos{pp};
-											while ((xpos=mpv[k].find(" x=\"",xpos))!=string::npos) {mpp<<"";xpos++;} // Zusatzzeilen hinter dem Medikament, z.B. /DATA/turbomed/Dokumente/Sonstiges/202108/Haertl19400724-1292-908F6826-76C0-4f1f-A1C4-F3BA0A508727.pdf
+											while ((xpos=bdmpzl[k].find(" x=\"",xpos))!=string::npos) {pzv<<"";xpos++;} // Zusatzzeilen hinter dem Medikament, z.B. /DATA/turbomed/Dokumente/Sonstiges/202108/Haertl19400724-1292-908F6826-76C0-4f1f-A1C4-F3BA0A508727.pdf
 										} else {
-											mpp<<"";
+											pzv<<"";
 										}
 									}
-								} // 							 for(size_t k=0;k<mpv.size();k++) KLA
+								} // 							 for(size_t k=0;k<bdmpzl.size();k++) KLA
 								//							 caus<<zeile<<endl;
 								const ulong p1{zeile.find("$\\TurboMed")+10}, p2{zeile.find("#")-p1};
 								const char ue[]{(char)129,0},oe[]{(char)148,0},Oe[]{(char)153,0},ae[]{(char)132,0};
 								string bdtf{"/DATA/turbomed"+ersetze(ersetze(ersetze(ersetze(ersetze(zeile.substr(p1,p2).c_str(),"\\","/").c_str(),ue,"ü").c_str(),oe,"ö").c_str(),Oe,"Ö").c_str(),ae,"ä")};
-								if (obcaus) caus<<blau<<bdtf<<schwarz<<":"<<endl;
+								if (obcaus>0||obverb) caus<<rot<<"Zeile "<<bznr<<schwarz<<": "<<blau<<bdtf<<schwarz<<":"<<endl;
 								pdfid={};
 								string sql= "SELECT id FROM "+tbdtpdf+" WHERE datei=\""+bdtf+"\"";
 								RS rpdf(My,sql,aktc,ZDB);
@@ -508,7 +508,6 @@ void hhcl::lese()
 									rins.tbins(&einf,aktc,/*sammeln=*/0,/*obverb=*/ZDB,/*idp=*/&pdfid,/*eindeutig=*/0,eindfeld); 
 								}
 								svec pdfv;
-								size_t medz{0};
 								string befehl{"pdftotext -bbox \""+bdtf+"\" -"};
 								if (!systemrueck(befehl,0,0,&pdfv)) {
 									struct ykandcl
@@ -532,7 +531,8 @@ void hhcl::lese()
 												py+=7;
 												const size_t pye{pdfv[j].find("\"",py)};
 												const double y{atof(pdfv[j].substr(py,pye-py).c_str())};
-												if (x==27||x==47||x==140) {
+												//												if (x==27||x==47||x==140) KLA // z.B. bei Einrückung um einen Buchstaben ist es nicht mehr genau
+												if (x<200) {
 													const size_t pwa{pdfv[j].find(">",pye)+1}, pwe{pdfv[j].find("<",pwa)};
 													const string word{!pwa||pwe==string::npos?"":pdfv[j].substr(pwa,pwe-pwa)};
 													yve.insert(ykandcl(y+seite*1000,word));
@@ -614,57 +614,61 @@ void hhcl::lese()
 										} // 									 if (px!=string::npos)
 									} // 								 for(size_t j=0;j<pdfv.size();j++)
 									if (obverb)
-										for(size_t znr=0;znr<mve.size()&&znr<mpp.size();znr++) {
-											printf("Znr: %2lu, PZN: %9s",znr,(znr<mpp.size()?mpp[znr].c_str():""));
+										for(size_t znr=0;znr<mve.size()&&znr<pzv.size();znr++) {
+											printf("Znr: %2lu, PZN: %9s",znr,(znr<pzv.size()?pzv[znr].c_str():""));
 											printf(", y: %4lu Wi: %-52s Han: %-40s\n",mve[znr].yab,mve[znr].wi.c_str(),mve[znr].han.c_str());
 										}
-									//								 if (obcaus) caus<<"mpp.size(): "<<blau<<mpp.size()<<schwarz<<endl;
-									for (size_t znr=0;znr<mpp.size();znr++) {
-										if (znr>=mve.size()) break;
-										//									 if (mpp[m]!="")
-										const string ma{GetMed(mve[znr].han)};
-									 if (obcaus) cout<<znr<<" "<<mpp[znr]<<" "<<blau<<mve[znr].wi<<schwarz<<" "<<ma<<" "<<gruen<<mve[znr].han<<schwarz<<" "<<endl;
-									 const my_ulonglong pzn{(my_ulonglong)atol(mpp[znr].c_str())};
-									 if (scharf && pzn) {
-										 sql="SET FOREIGN_KEY_CHECKS=0;";
+									//								 if (obcaus>0) caus<<"pzv.size(): "<<blau<<pzv.size()<<schwarz<<endl;
+									if (pzv.size()==mve.size()) // Pat. 63056
+										for (size_t znr=0;znr<pzv.size();znr++) {
+											//										if (znr>=mve.size()) break;
+											//									 if (pzv[m]!="")
+											const string ma{GetMed(mve[znr].han)};
+											if (obcaus>0) cout<<znr<<" "<<pzv[znr]<<" "<<blau<<mve[znr].wi<<schwarz<<" "<<ma<<" "<<gruen<<mve[znr].han<<schwarz<<" "<<endl;
+											const my_ulonglong pzn{(my_ulonglong)atol(pzv[znr].c_str())};
+											if (scharf && pzn) {
+												sql="SET FOREIGN_KEY_CHECKS=0;";
 
-										 RS rins(My,tbdtnachw); // muss fuer sammeln vor while stehen
-										 const auto start{chrono::system_clock::now()};
-										 const time_t jetzt{chrono::system_clock::to_time_t(start)};
-										 vector<instyp> einf;
-										 einf.push_back(/*2*/instyp(My->DBS,"bdid",&bdid));
-										 einf.push_back(/*2*/instyp(My->DBS,"pdfid",&pdfid));
-										 einf.push_back(/*2*/instyp(My->DBS,"PID",&pid));
-										 const string creatdt{creatd+" "+creatt};
-										 einf.push_back(/*2*/instyp(My->DBS,"MPDatum",&creatdt));
-										 einf.push_back(/*2*/instyp(My->DBS,"Medikament",mve[znr].han));
-										 einf.push_back(/*2*/instyp(My->DBS,"MedAnfang",ma));
-										 einf.push_back(/*2*/instyp(My->DBS,"Wirkstoff",mve[znr].wi));
-										 einf.push_back(/*2*/instyp(My->DBS,"PZN",mpp[znr]));
-										 einf.push_back(/*2*/instyp(My->DBS,"Znr",bznr));
-										 einf.push_back(/*2*/instyp(My->DBS,"medz",medz));
-										 einf.push_back(/*2*/instyp(My->DBS,"pznz",mpp.size()));
-										 einf.push_back(/*2*/instyp(My->DBS,"verarbeitet",&jetzt));
-										 svec eindfeld; eindfeld<<"id";
-										 rins.tbins(&einf,aktc,/*sammeln=*/0,/*obverb=*/ZDB,/*idp=*/0,/*eindeutig=*/0,eindfeld); 
-										 if (rins.fnr) {
-											 fLog(Tx[T_Fehler_af]+drots+ltoan(rins.fnr)+schwarz+Txk[T_bei]+tuerkis+rins.sql+schwarz+": "+blau+rins.fehler+schwarz,1,1);
-										 } else {
-//											 if (obcaus) caus<<blau<<"in "<<tbdtnachw<<" eingefuegt: "<<violett<<erg[i]<<schwarz<<endl;
-										 }
+												RS rins(My,tbdtnachw); // muss fuer sammeln vor while stehen
+												const auto start{chrono::system_clock::now()};
+												const time_t jetzt{chrono::system_clock::to_time_t(start)};
+												vector<instyp> einf;
+												einf.push_back(/*2*/instyp(My->DBS,"bdid",&bdid));
+												einf.push_back(/*2*/instyp(My->DBS,"pdfid",&pdfid));
+												einf.push_back(/*2*/instyp(My->DBS,"PID",&pid));
+												const string creatdt{creatd+" "+creatt};
+												einf.push_back(/*2*/instyp(My->DBS,"MPDatum",&creatdt));
+												einf.push_back(/*2*/instyp(My->DBS,"Medikament",mve[znr].han));
+												einf.push_back(/*2*/instyp(My->DBS,"MedAnfang",ma));
+												einf.push_back(/*2*/instyp(My->DBS,"Wirkstoff",mve[znr].wi));
+												einf.push_back(/*2*/instyp(My->DBS,"PZN",pzv[znr]));
+												einf.push_back(/*2*/instyp(My->DBS,"Znr",bznr));
+												einf.push_back(/*2*/instyp(My->DBS,"medz",mve.size()));
+												einf.push_back(/*2*/instyp(My->DBS,"pznz",pzv.size()));
+												einf.push_back(/*2*/instyp(My->DBS,"verarbeitet",&jetzt));
+												svec eindfeld; eindfeld<<"id";
+												rins.tbins(&einf,aktc,/*sammeln=*/0,/*obverb=*/ZDB,/*idp=*/0,/*eindeutig=*/0,eindfeld); 
+												if (rins.fnr) {
+													fLog(Tx[T_Fehler_af]+drots+ltoan(rins.fnr)+schwarz+Txk[T_bei]+tuerkis+rins.sql+schwarz+": "+blau+rins.fehler+schwarz,1,1);
+												} else {
+													//											 if (obcaus>0) caus<<blau<<"in "<<tbdtnachw<<" eingefuegt: "<<violett<<erg[i]<<schwarz<<endl;
+												}
 
-										 RS vupd(My,sql,aktc,ZDB);
-										 sql="UPDATE medplan SET Medikament=\""+mve[znr].han+"\",MedAnfang=\""+ma+"\",Wirkstoff=\""+mve[znr].wi+"\",ergaenzt=1 "
-											 "WHERE PZN="+mpp[znr]; // +" AND Medikament=''"; // am 23.3.22 entfernt, 
-										                        // da PZN 17414467 falsch vergeben war für L-Thyrox Hexal 75 statt Toujeo
-										 RS upd(My,sql,aktc,ZDB);
-										 sql="SET FOREIGN_KEY_CHECKS=1;";
-										 RS nupd(My,sql,aktc,ZDB);
-									 } // 									 if (scharf && pzn)
-								 } // 								 for (size_t m=0;m<mpp.size();m++)
-							 } // 							 if (!systemrueck(befehl,0,0,&pdfv))
-						 } // 						 if (zeile.find("#CGM BMP gedruckt#")!=string::npos)
-					 } // 					  else if (stand==3 && zeile.substr(3,4)=="6324")
+												RS vupd(My,sql,aktc,ZDB);
+												if (ma!="UNBEKANNTE") {
+													patn.insert(atol(pid.c_str()));
+													sql="UPDATE medplan SET Medikament=\""+mve[znr].han+"\",MedAnfang=\""+ma+"\",Wirkstoff=\""+mve[znr].wi+"\",ergaenzt=1 "
+														"WHERE PZN="+pzv[znr]; // +" AND Medikament=''"; // am 23.3.22 entfernt, 
+													// da PZN 17414467 falsch vergeben war für L-Thyrox Hexal 75 statt Toujeo
+													RS upd(My,sql,aktc,ZDB);
+												}
+												sql="SET FOREIGN_KEY_CHECKS=1;";
+												RS nupd(My,sql,aktc,ZDB);
+											} // 									 if (scharf && pzn)
+										} // 								 for (size_t m=0;m<pzv.size();m++)
+								} // 							 if (!systemrueck(befehl,0,0,&pdfv))
+							} // 						 if (zeile.find("#CGM BMP gedruckt#")!=string::npos)
+						} // 					  else if (stand==3 && zeile.substr(3,4)=="6324")
 					} // 					while (getline(bdt,zeile))
 				} // 				if (bdt.is_open())
 			} // 			if (!gef)
@@ -676,6 +680,16 @@ void hhcl::lese()
 		} // 	if (My->fehnr)
 		//		systemrueck("cat \"/"+erg[i]+"\"",1);
 	} // 	for(size_t i=0;i<erg.size();i++)
+	if (obverb) { 
+		caus<<"Passe Therapiearten an für Pat.: "<<blau;
+		uchar beg{0};
+		for(const auto &it:patn){if(beg)caus<<",";caus<<it;beg=1;}
+		caus<<schwarz<<":"<<endl;
+	}
+	for(const auto &it:patn){
+		string sql{"call fuellThaP("+ltoan(it)+")"};
+		RS tha(My,sql,aktc,ZDB);
+	}
 	caus<<blau<<"Fertig mit lese()"<<schwarz<<endl;
 } // void hhcl::lese
 
@@ -707,7 +721,7 @@ void hhcl::virtautokonfschreib()
 		////    agcnfA.setzbem("language",sprachstr);
 		hcl::virtautokonfschreib(); //ω
 	} // if (rzf||hccd.obzuschreib) //α
-// obverb=altobverb;
+	// obverb=altobverb;
 } // void hhcl::virtautokonfschreib
 
 hhcl::~hhcl() 
