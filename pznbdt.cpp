@@ -392,7 +392,7 @@ void hhcl::lese()
 			if (!gef) {
 				mdatei bdt(bdtvz+"/"+tok[0],ios::in|ios::binary);
 				if (bdt.is_open()) {
-					caus<<"BDT ist offen: "<<blau<<bdtvz<<"/"<<tok[0]<<schwarz<<endl;
+					caus<<"verarbeite: "<<blau<<bdtvz<<"/"<<tok[0]<<schwarz<<", geaendert: "<<tok[1]<<endl;
 					pid.clear();
 					if (scharf) {
 						RS rins(My,tbdtdat); // muss fuer sammeln vor while stehen
@@ -408,11 +408,11 @@ void hhcl::lese()
 						if (rins.fnr) {
 							fLog(Tx[T_Fehler_af]+drots+ltoan(rins.fnr)+schwarz+Txk[T_bei]+tuerkis+rins.sql+schwarz+": "+blau+rins.fehler+schwarz,1,1);
 						} else {
-							caus<<blau<<"in "<<tbdtdat<<" eingefuegt: "<<violett<<erg[i]<<schwarz<<endl;
+							if (obverb) caus<<blau<<"in "<<tbdtdat<<" eingefuegt: "<<violett<<erg[i]<<schwarz<<endl;
 						}
 					} // if (0)
 					string zeile, xml;
-					 int obcaus{0}; // bei Untersuchung einer PZN => 0
+					 int obcaus{-1}; // bei Untersuchung einer PZN => 0
 					 const char* const suchpzn{"10042212"};
 					uchar stand{0};
 					size_t bznr{0};
@@ -487,8 +487,25 @@ void hhcl::lese()
 								} // 							 for(size_t k=0;k<bdmpzl.size();k++) KLA
 								//							 caus<<zeile<<endl;
 								const ulong p1{zeile.find("$\\TurboMed")+10}, p2{zeile.find("#")-p1};
-								const char ue[]{(char)129,0},oe[]{(char)148,0},Oe[]{(char)153,0},ae[]{(char)132,0};
-								string bdtf{"/DATA/turbomed"+ersetze(ersetze(ersetze(ersetze(ersetze(zeile.substr(p1,p2).c_str(),"\\","/").c_str(),ue,"ü").c_str(),oe,"ö").c_str(),Oe,"Ö").c_str(),ae,"ä")};
+								struct umlcl {
+									const char* const ur;
+									const char* const zu;
+								} uml[]{
+									      {"\\","/"},
+									      {(const char[]){(const char)132,0},"ä"},
+									      {(const char[]){(const char)142,0},"Ä"},
+									      {(const char[]){(const char)142,0},"Ä"},
+									      {(const char[]){(const char)148,0},"ö"},
+									      {(const char[]){(const char)153,0},"Ö"},
+									      {(const char[]){(const char)129,0},"ü"},
+									      {(const char[]){(const char)154,0},"Ü"},
+									      {(const char[]){(const char)225,0},"ß"},
+											};
+								string z{zeile.substr(p1,p2)};
+							  for(auto it: uml) {
+                 z=ersetze(z.c_str(),it.ur,it.zu);
+								}
+								string bdtf{"/DATA/turbomed"+z};
 								if (obcaus>0||obverb) caus<<rot<<"Zeile "<<bznr<<schwarz<<": "<<blau<<bdtf<<schwarz<<":"<<endl;
 								pdfid={};
 								string sql= "SELECT id FROM "+tbdtpdf+" WHERE datei=\""+bdtf+"\"";
