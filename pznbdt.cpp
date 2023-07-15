@@ -704,6 +704,7 @@ void hhcl::lese()
 		caus<<schwarz<<":"<<endl;
 	}
 	for(const auto &it:patn){
+    // wird in Dateilesen/Formular.bas definiert
 		string sql{"call fuellThaP("+ltoan(it)+")"};
 		RS tha(My,sql,aktc,ZDB);
 	}
