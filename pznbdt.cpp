@@ -278,7 +278,7 @@ void hhcl::pruefbdtdat(DB *My, const size_t aktc, const int obverb, const int ob
 		Tabelle taba(My,tbdtdat,felder,sizeof felder/sizeof* felder,indices,sizeof indices/sizeof *indices,0,0,Tx[T_bdtdat]/*//,"InnoDB","utf8","utf8_general_ci","DYNAMIC"*/);
 		if (taba.prueftab(aktc,obverb)) {
 			fLog(rots+Tx[T_Fehler_beim_Pruefen_von]+schwarz+tbdtdat,1,1);
-			exit(11);
+			kexitDB(My,11);
 		}
 	} // if (!direkt)
 } // int pruefbdtdat(DB *My, string touta, int obverb, int oblog, uchar direkt=0)
@@ -314,7 +314,7 @@ void hhcl::pruefbdtnachw(DB *My, const size_t aktc, const int obverb, const int 
 		Tabelle taba(My,tbdtnachw,felder,sizeof felder/sizeof* felder,indices,sizeof indices/sizeof *indices,csts,sizeof csts/sizeof *csts,Tx[T_bdtnachw]/*//,"InnoDB","utf8","utf8_general_ci","DYNAMIC"*/);
 		if (taba.prueftab(aktc,obverb)) {
 			fLog(rots+Tx[T_Fehler_beim_Pruefen_von]+schwarz+tbdtnachw,1,1);
-			exit(11);
+			kexitDB(My,11);
 		}
 	} // if (!direkt)
 } // int pruefbdtdat(DB *My, string touta, int obverb, int oblog, uchar direkt=0)
@@ -333,7 +333,7 @@ void hhcl::pruefbdtpdf(DB *My, const size_t aktc, const int obverb, const int ob
 		Tabelle taba(My,tbdtpdf,felder,sizeof felder/sizeof* felder,indices,sizeof indices/sizeof *indices,0,0,Tx[T_bdtpdf]/*//,"InnoDB","utf8","utf8_general_ci","DYNAMIC"*/);
 		if (taba.prueftab(aktc,obverb)) {
 			fLog(rots+Tx[T_Fehler_beim_Pruefen_von]+schwarz+tbdtpdf,1,1);
-			exit(11);
+			kexitDB(My,11);
 		}
 	} // if (!direkt)
 } // int pruefbdtdat(DB *My, string touta, int obverb, int oblog, uchar direkt=0)
